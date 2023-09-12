@@ -1,6 +1,8 @@
 import React from "react";
 import { mockDatas } from "./MockData";
 import { useState, useEffect } from "react";
+import { entryDatas } from "./Sscript";
+import { useLocation } from 'react-router-dom';
 
 //Listelenen uçuşlar kalkış saati, dönüş saati, uçuş uzunluğu, ya da fiyata göre sıralanabilmeli
 //Sunucudan cevap gelene kadar kullanıcıya “yükleniyor” animasyonu gösterilmeli
@@ -8,9 +10,15 @@ import { useState, useEffect } from "react";
 const FlighFilter = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [sortingPreference, setSortingPreference] = useState("");
-  const selectedCity = "Adana(ADA)";
-  const selectedDestination = "İzmir(ADB)";
-  const selectedDate = "9/18/2023";
+  const firstPageDatas= entryDatas;
+  const { search } = useLocation();
+  const params = new URLSearchParams(search);
+  const cityGo = params.get('cityGo');
+  const cityTurn = params.get('cityTurn');
+  const dateF = params.get('dateF');
+  const selectedCity = cityGo;
+  const selectedDestination = cityTurn;
+  const selectedDate = dateF;
 
   useEffect(() => {
     const data = mockDatas;
@@ -72,10 +80,12 @@ const handleSort = (preference) => {
   return (
     <div className="pt-12">
       <div className="bg-white lg:w-[90%] pt-12 pb-96 lg:rounded-3xl max-w-[1240px] mb-8 mx-auto text-center flex flex-col justify-center lg:border-8 border-[#c5df00]">
+        
         <p className="font-bold text-[#c5df00] text-left pb-8 pl-12">
           uygunuç.
           <span className="text-[#000000]"> ile en iyi tercihi yapın.</span>
         </p>
+        <p className="text-black">{dateF}</p>
         <div className="lg:flex">
           <div className="flex pl-8 lg:pl-12 pb-4 gap-8">
             <div class="flex items-center pl-4 ">

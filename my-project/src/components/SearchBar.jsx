@@ -20,7 +20,10 @@ function SearchBar({ placeholder, data , selectedAirportToGo }) {
   
     const handleAirportClick = (airport) => {
       setSearchInput(airport.city);
-      setSelectedAirport(airport);
+      setSelectedAirport(airport.city);
+      if (selectedAirportToGo) {
+        selectedAirportToGo(airport.city);
+      }
       setFilteredAirports([]); // Sonuçları temizle
     };
   
@@ -39,7 +42,7 @@ function SearchBar({ placeholder, data , selectedAirportToGo }) {
             {filteredAirports.map((airport, index) => (
               <tr key={index} onClick={() => handleAirportClick(airport)}>
                 <td>{airport.city}</td>
-                {selectedAirportToGo=setSelectedAirport}
+                {}
               </tr>
             ))}
           </tbody>
