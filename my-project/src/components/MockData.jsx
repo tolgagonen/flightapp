@@ -10,7 +10,7 @@ export const mockDatas = [{"id":1,"airline":"Pegasus","city":"İstanbul(IST)","d
 {"id":10,"airline":"Emirates","city":"Adana(ADA)","destination":"Antalya(AYT)","time_start":7,"time_end":23,"price":1637,"date":"9/21/2023"},
 {"id":11,"airline":"Pegasus","city":"Antalya(AYT)","destination":"Kayseri(ASR)","time_start":21.3,"time_end":16,"price":1293,"date":"9/20/2023"},
 {"id":12,"airline":"AnadoluJet","city":"İstanbul(SAW)","destination":"İzmir(ADB)","time_start":20.3,"time_end":20,"price":1020,"date":"9/21/2023"},
-{"id":13,"airline":"Pegasus","city":"İstanbul(IST)","destination":"İstanbul(SAW)","time_start":18.3,"time_end":22.3,"price":1084,"date":"9/13/2023"},
+{"id":13,"airline":"Pegasus","city":"İstanbul(IST)","destination":"Eskişehir(AOE)","time_start":18.3,"time_end":22.3,"price":1084,"date":"9/13/2023"},
 {"id":14,"airline":"Emirates","city":"Kayseri(ASR)","destination":"Eskişehir(AOE)","time_start":5,"time_end":6.3,"price":1151,"date":"9/13/2023"},
 {"id":15,"airline":"SunExpress","city":"Eskişehir(AOE)","destination":"Eskişehir(AOE)","time_start":5,"time_end":9,"price":1379,"date":"9/20/2023"},
 {"id":16,"airline":"Emirates","city":"Adana(ADA)","destination":"Kayseri(ASR)","time_start":23,"time_end":20.3,"price":808,"date":"9/12/2023"},

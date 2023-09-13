@@ -124,8 +124,8 @@ export const Sscript2 = () => {
             data={turkeyAirports}
             selectedAirportToGo={setSelectedCity1}
           />
-           {cityhelp1=selectedCity1}
-           <h1>{cityhelp1}</h1>
+           <h1 className="text-white">{cityhelp1=selectedCity1}</h1>
+           <h1 className="text-white">{cityhelp1}</h1>
         </div>
       </div>
       <div className="pb-4">
@@ -135,15 +135,15 @@ export const Sscript2 = () => {
             data={turkeyAirports}
             selectedAirportToGo={setSelectedCity2}
           />
-            {cityhelp2=selectedCity2}
-           <h1>{cityhelp2}</h1>
+            <h1 className="text-white">{cityhelp2=selectedCity2}</h1>
+           <h1 className="text-white">{cityhelp2}</h1>
         </div>
       </div>
       <div className="pb-4">
         <div className="border border-gray-400 flex px-3 py-3 text-black rounded-xl">
           <Datepicker onChange={handleDateChange3} />
-          <h1>{dateF=formatDate(selectedDate3)}</h1>
-          <h1>{dateHelp=dateF}</h1>
+          <h1 className="text-white">{dateF=formatDate(selectedDate3)}</h1>
+          <h1 className="text-white">{dateHelp=dateF}</h1>
         </div>
       </div>
       <button class="bg-[#9cb034] hover:bg-[#e4ff5d] text-black font-bold py-2 px-4 border-b-4 border-[#757e43] hover:border-[#dbef78] rounded">

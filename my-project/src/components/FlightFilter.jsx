@@ -13,7 +13,17 @@ const FlighFilter = () => {
   const params = new URLSearchParams(search);
   const selectedCity = params.get('cityGo');
   const selectedDestination = params.get('cityTurn');
-  const selectedDate = params.get("dateF");
+  const selectedDate1 = params.get("dateF");
+
+
+  function formatInputDate(inputDate) {
+    const [month, day, year] = inputDate.split('/'); // Örnek format: M/D/YYYY
+    const formattedMonth = parseInt(month, 10).toString();
+    const formattedDay = parseInt(day, 10).toString();
+    return `${formattedMonth}/${formattedDay}/${year}`;
+  }
+
+  const formattedDate = formatInputDate(selectedDate1);
 
   useEffect(() => {
     const data = mockDatas;
@@ -21,7 +31,8 @@ const FlighFilter = () => {
     const filteredData = data.filter((item) => {
       return (
         item.city === selectedCity &&
-        item.destination === selectedDestination 
+        item.destination === selectedDestination &&
+        item.date === formattedDate
       );
     });
     
@@ -30,7 +41,7 @@ const FlighFilter = () => {
   const sortedData = sortDataByPreference(filteredData, sortingPreference);
 
   setFilteredData(sortedData);
-}, [selectedCity, selectedDestination, selectedDate, sortingPreference]);
+}, [selectedCity, selectedDestination, selectedDate1, sortingPreference]);
 
 
 const calculateFlightDuration = (time_start, time_end) => {
@@ -80,7 +91,7 @@ const handleSort = (preference) => {
         <div className="flex text-right pb-8 font-bold">
         <p className="text-black">{selectedCity}-</p>
         <p className="text-black">{selectedDestination}-</p>
-        <p className="text-black">{selectedDate}</p>
+        <p className="text-black">{formattedDate}</p>
         </div>
         <div className="lg:flex">
           <div className="flex pl-8 lg:pl-12 pb-4 gap-8">
