@@ -6,31 +6,38 @@ import { useLocation } from 'react-router-dom';
 //Listelenen uçuşlar kalkış saati, dönüş saati, uçuş uzunluğu, ya da fiyata göre sıralanabilmeli
 //Sunucudan cevap gelene kadar kullanıcıya “yükleniyor” animasyonu gösterilmeli
 //Listelenen uçuşların detay bilgileri gösterilmeli (havayolu, şehir, vs.)
-const FlighFilter = () => {
+const RoundTrip = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [sortingPreference, setSortingPreference] = useState("");
   const { search } = useLocation();
   const params = new URLSearchParams(search);
-  const selectedCity = params.get('cityGo');
-  const selectedDestination = params.get('cityTurn');
-  const selectedDate1 = params.get("dateF1");
-  const checkway = params.get("dateF2");
+  const selectedCity = params.get('cityTurn');
+  const selectedDestination = params.get('cityGo');
+  const selectedDate1 = params.get("dateF2");
+  const checkway = params.get("dateF1");
 
+  if (checkway){
 
-  const formatInputDate = (inputDate) => {
+  }else{
+    
+  }
+
+  const formatInputDate = (inputDate,checkDate) => {
+    if(checkDate){
     if (inputDate) {
       const [month, day, year] = inputDate.split('/');
       const formattedMonth = parseInt(month, 10).toString();
       const formattedDay = parseInt(day, 10).toString();
       return `${formattedMonth}/${formattedDay}/${year}`;
     } else {
-      // Geçersiz tarih girişi için bir hata mesajı veya geri bildirim döndürün.
+      return "Geri dönüş biletinizi de almayı unutmayınız. :)";
+    }}else{
       return "Şehir ve tarih terchileri için giriş sayfasını kullanınız.";
     }
   };
   
 
-  const formattedDate = formatInputDate(selectedDate1);
+  const formattedDate = formatInputDate(selectedDate1,checkway);
 
   useEffect(() => {
     const data = mockDatas;
@@ -88,32 +95,29 @@ const handleSort = (preference) => {
 
 
   return (
-    <div className="pt-12">
+    <div className="">
       <div className="bg-white lg:w-[90%] pt-12 pb-96 lg:rounded-3xl max-w-[1240px] mb-8 mx-auto text-center flex flex-col justify-center lg:border-8 border-[#c5df00]">
-        
-        <p className="font-bold text-[#c5df00] text-left pb-8 pl-16">
-          uygunuç.
-          <span className="text-[#000000]"> ile en iyi tercihi yapın.</span>
-        </p>
         <div className="flex text-right pb-4 pl-16 font-bold">
         <p className="text-black">{selectedCity}-</p>
         <p className="text-black">{selectedDestination}-</p>
         <p className="text-black">{formattedDate}</p>
         </div>
+        <p className="text-black font-bold text-lg">Giden Uçaklar</p>
         <div className="lg:flex">
+    
           <div className="flex pl-8 lg:pl-12 pb-4 gap-8">
             <div className="flex items-center pl-4 ">
               <input
                 checked={sortingPreference === "cheapest"} // Kontrol edilen sıralama seçeneği
                 onChange={() => handleSort("cheapest")}
-                id="bordered-radio-1"
+                id="bordered-radio-11"
                 type="radio"
                 value=""
-                name="bordered-radio"
+                name="bordered-radio2"
                 className="w-4 h-4 text-black"
               />
               <label
-                htmlFor="bordered-radio-1"
+                htmlFor="bordered-radio-11"
                 className="w-full py-4 ml-2 text-l text-black font-bold"
               >
                 En Ucuz Uçuş
@@ -123,14 +127,14 @@ const handleSort = (preference) => {
               <input
               checked={sortingPreference === "earliest_departure"} // Kontrol edilen sıralama seçeneği
               onChange={() => handleSort("earliest_departure")}
-                id="bordered-radio-2"
+                id="bordered-radio-21"
                 type="radio"
                 value=""
-                name="bordered-radio"
+                name="bordered-radio2"
                 className="w-4 h-4 text-black"
               />
               <label
-                htmlFor="bordered-radio-2"
+                htmlFor="bordered-radio-12"
                 className="w-full py-4 ml-2 text-l text-black font-bold"
               >
                 En Erken Kalkan
@@ -143,14 +147,14 @@ const handleSort = (preference) => {
               <input
               checked={sortingPreference === "earliest_arrival"} // Kontrol edilen sıralama seçeneği
               onChange={() => handleSort("earliest_arrival")}
-                id="bordered-radio-3"
+                id="bordered-radio-13"
                 type="radio"
                 value=""
-                name="bordered-radio"
+                name="bordered-radio2"
                 className="w-4 h-4 text-black"
               />
               <label
-                htmlFor="bordered-radio-3"
+                htmlFor="bordered-radio-13"
                 className="w-full py-4 ml-2 text-l text-black font-bold"
               >
                 En Erken Varan
@@ -160,14 +164,14 @@ const handleSort = (preference) => {
               <input
               checked={sortingPreference === "shortest_flight"} // Kontrol edilen sıralama seçeneği
               onChange={() => handleSort("shortest_flight")}
-                id="bordered-radio-4"
+                id="bordered-radio-14"
                 type="radio"
                 value=""
-                name="bordered-radio"
+                name="bordered-radio2"
                 className="w-4 h-4 text-black"
               />
               <label
-                htmlFor="bordered-radio-4"
+                htmlFor="bordered-radio-14"
                 className="w-full py-4 ml-2 text-l text-black font-bold"
               >
                 En Kısa Uçuş{" "}
@@ -234,4 +238,4 @@ const handleSort = (preference) => {
   );
 };
 
-export default FlighFilter;
+export default RoundTrip;
