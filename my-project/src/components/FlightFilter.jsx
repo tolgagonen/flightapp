@@ -1,7 +1,6 @@
 import React from "react";
 import { mockDatas } from "./MockData";
 import { useState, useEffect } from "react";
-import { entryDatas } from "./Sscript";
 import { useLocation } from 'react-router-dom';
 
 //Listelenen uçuşlar kalkış saati, dönüş saati, uçuş uzunluğu, ya da fiyata göre sıralanabilmeli
@@ -10,15 +9,11 @@ import { useLocation } from 'react-router-dom';
 const FlighFilter = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [sortingPreference, setSortingPreference] = useState("");
-  const firstPageDatas= entryDatas;
   const { search } = useLocation();
   const params = new URLSearchParams(search);
-  const cityGo = params.get('cityGo');
-  const cityTurn = params.get('cityTurn');
-  const dateF = params.get('dateF');
-  const selectedCity = cityGo;
-  const selectedDestination = cityTurn;
-  const selectedDate = dateF;
+  const selectedCity = params.get('cityGo');
+  const selectedDestination = params.get('cityTurn');
+  const selectedDate = params.get("dateF");
 
   useEffect(() => {
     const data = mockDatas;
@@ -26,11 +21,11 @@ const FlighFilter = () => {
     const filteredData = data.filter((item) => {
       return (
         item.city === selectedCity &&
-        item.destination === selectedDestination &&
-        item.date === selectedDate
+        item.destination === selectedDestination 
       );
     });
     
+    console.log(filteredData);
 
   const sortedData = sortDataByPreference(filteredData, sortingPreference);
 
@@ -39,17 +34,14 @@ const FlighFilter = () => {
 
 
 const calculateFlightDuration = (time_start, time_end) => {
-
-  const data = mockDatas;  
-  const a=data.time_start;
-  const b=data.time_end;
-  if (a>b){
-    return 24-a+b;
-  }else{
-    return a-b;
+  const a = time_start;
+  const b = time_end;
+  if (a > b) {
+    return a - b;
+  } else {
+    return b - a;
   }
-
-}
+};
 
 const sortDataByPreference = (data, preference) => {
   return data.slice().sort((a, b) => {
@@ -85,10 +77,14 @@ const handleSort = (preference) => {
           uygunuç.
           <span className="text-[#000000]"> ile en iyi tercihi yapın.</span>
         </p>
-        <p className="text-black">{dateF}</p>
+        <div className="flex text-right pb-8 font-bold">
+        <p className="text-black">{selectedCity}-</p>
+        <p className="text-black">{selectedDestination}-</p>
+        <p className="text-black">{selectedDate}</p>
+        </div>
         <div className="lg:flex">
           <div className="flex pl-8 lg:pl-12 pb-4 gap-8">
-            <div class="flex items-center pl-4 ">
+            <div className="flex items-center pl-4 ">
               <input
                 checked={sortingPreference === "cheapest"} // Kontrol edilen sıralama seçeneği
                 onChange={() => handleSort("cheapest")}
@@ -96,16 +92,16 @@ const handleSort = (preference) => {
                 type="radio"
                 value=""
                 name="bordered-radio"
-                class="w-4 h-4 text-black"
+                className="w-4 h-4 text-black"
               />
               <label
-                for="bordered-radio-1"
-                class="w-full py-4 ml-2 text-l text-black font-bold"
+                htmlFor="bordered-radio-1"
+                className="w-full py-4 ml-2 text-l text-black font-bold"
               >
                 En Ucuz Uçuş
               </label>
             </div>
-            <div class="flex items-center pl-4 ">
+            <div className="flex items-center pl-4 ">
               <input
               checked={sortingPreference === "earliest_departure"} // Kontrol edilen sıralama seçeneği
               onChange={() => handleSort("earliest_departure")}
@@ -113,11 +109,11 @@ const handleSort = (preference) => {
                 type="radio"
                 value=""
                 name="bordered-radio"
-                class="w-4 h-4 text-black"
+                className="w-4 h-4 text-black"
               />
               <label
-                for="bordered-radio-2"
-                class="w-full py-4 ml-2 text-l text-black font-bold"
+                htmlFor="bordered-radio-2"
+                className="w-full py-4 ml-2 text-l text-black font-bold"
               >
                 En Erken Kalkan
               </label>
@@ -125,7 +121,7 @@ const handleSort = (preference) => {
           </div>
 
           <div className="flex pl-8 lg:pl-12 pb-4 gap-8">
-            <div class="flex items-center pl-4 ">
+            <div className="flex items-center pl-4 ">
               <input
               checked={sortingPreference === "earliest_arrival"} // Kontrol edilen sıralama seçeneği
               onChange={() => handleSort("earliest_arrival")}
@@ -133,16 +129,16 @@ const handleSort = (preference) => {
                 type="radio"
                 value=""
                 name="bordered-radio"
-                class="w-4 h-4 text-black"
+                className="w-4 h-4 text-black"
               />
               <label
-                for="bordered-radio-3"
-                class="w-full py-4 ml-2 text-l text-black font-bold"
+                htmlFor="bordered-radio-3"
+                className="w-full py-4 ml-2 text-l text-black font-bold"
               >
                 En Erken Varan
               </label>
             </div>
-            <div class="flex items-center pl-4 rounded ">
+            <div className="flex items-center pl-4 rounded ">
               <input
               checked={sortingPreference === "shortest_flight"} // Kontrol edilen sıralama seçeneği
               onChange={() => handleSort("shortest_flight")}
@@ -150,11 +146,11 @@ const handleSort = (preference) => {
                 type="radio"
                 value=""
                 name="bordered-radio"
-                class="w-4 h-4 text-black"
+                className="w-4 h-4 text-black"
               />
               <label
-                for="bordered-radio-4"
-                class="w-full py-4 ml-2 text-l text-black font-bold"
+                htmlFor="bordered-radio-4"
+                className="w-full py-4 ml-2 text-l text-black font-bold"
               >
                 En Kısa Uçuş{" "}
               </label>
@@ -162,12 +158,12 @@ const handleSort = (preference) => {
           </div>
         </div>
 
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-          <div class="pb-4 bg-white dark:bg-gray-900">
-            <label for="table-search" class="sr-only">
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+          <div className="pb-4 bg-white dark:bg-gray-900">
+            <label htmlFor="table-search" className="sr-only">
               Search
             </label>
-            <div class="relative mt-1"></div>
+            <div className="relative mt-1"></div>
           </div>
           {filteredData.length === 0 ? (
             <div className=" dark:bg-gray-900 text-white font-bold">
@@ -175,20 +171,20 @@ const handleSort = (preference) => {
     <p>9/12/2023 - 9/22/2023 arasında bolca uçuş gözüküyor belki de o tarihleri denemelisiniz.</p></div>
   ) : (
 
-          <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
-                <th scope="col" class="p-4"></th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="p-4"></th>
+                <th scope="col" className="px-6 py-3">
                   Uçuş
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   Kalkış Saati
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   Dönüş Saati
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   Fiyat
                 </th>
               </tr>
@@ -196,20 +192,20 @@ const handleSort = (preference) => {
             <tbody>
               {filteredData.map((flight, index) => (
                 <tr
-                  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                   key={index}
                 >
-                  <td class="w-4 p-4"></td>
+                  <td className="w-4 p-4"></td>
                   <th
                     scope="row"
-                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
                     {flight.airline} - {flight.city} 'dan {flight.destination}{" "}
                     'e
                   </th>
-                  <td class="px-6 py-4">{flight.time_start}</td>
-                  <td class="px-6 py-4">{flight.time_end}</td>
-                  <td class="px-6 py-4">{flight.price}</td>
+                  <td className="px-6 py-4">{flight.time_start}</td>
+                  <td className="px-6 py-4">{flight.time_end}</td>
+                  <td className="px-6 py-4">{flight.price}</td>
                 </tr>
               ))}
             </tbody>

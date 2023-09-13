@@ -9,11 +9,6 @@ import { Link } from 'react-router-dom';
 
 let dateF="";
 
-export const entryDatas =[
-  { city: "{cityGo}" , destination: "{cityTurn}" , date:"{dateF}" }
-
-]
-
 
 function formatDate(date) {
   const day = String(date.getDate()).padStart(2, '0');
@@ -50,6 +45,16 @@ export const Sscript1 = () => {
     setSelectedDate2(date);
   };
 
+  const handleSearch = () => {
+    const formattedDate1 = formatDate(selectedDate1); 
+    const formattedDate2 = formatDate(selectedDate2);
+  
+    window.location.href = `/bilet?cityGo=${selectedCity1}&cityTurn=${selectedCity2}&dateF1=${formattedDate1}&dateF2=${formattedDate2}`;
+  };
+  let cityhelp1=""
+  let cityhelp2=""
+  let dateF1=""
+  let dateF2=""
 
   return (
     <div>
@@ -60,6 +65,8 @@ export const Sscript1 = () => {
             data={turkeyAirports}
             selectedAirportToGo={handleSelectedCity1}
           />
+                    {cityhelp1=selectedCity1}
+                  <h1>{cityhelp1}</h1>
         </div>
       </div>
       <div className="pb-4">
@@ -69,22 +76,22 @@ export const Sscript1 = () => {
             data={turkeyAirports}
             selectedAirportToGo={handleSelectedCity2}
           />
+                    {cityhelp2=selectedCity2}
+                    <h1>{cityhelp2}</h1>
         </div>
       </div>
       <div className="pb-4">
         <div className="border border-gray-400 flex px-3 py-3 text-black rounded-xl">
           <Datepicker  onChange={handleDateChange1}/>
-          <h1>{formatDate(selectedDate1)}</h1>
         </div>
       </div>
       <div className="pb-4">
         <div className="border border-gray-400 flex px-3 py-3 text-black rounded-xl">
           <Datepicker onChange={handleDateChange2} />
-          <h1>{formatDate(selectedDate2)}</h1>
         </div>
       </div>
       <button class="bg-[#9cb034] hover:bg-[#e4ff5d] text-black font-bold py-2 px-4 border-b-4 border-[#757e43] hover:border-[#dbef78] rounded">
-        <a href="/bilet">Ucuz Uçuş Ara</a>
+      <Link to={`/bilet?cityGo=${cityhelp1}&cityTurn=${cityhelp2}&dateF=${dateF}`}>Ucuz Uçuş Ara</Link>
       </button>
     </div>
   );
@@ -104,6 +111,9 @@ export const Sscript2 = () => {
   const handleDateChange3 = (date) => {
     setSelectedDate3(date);
   };
+  let cityhelp1=""
+  let cityhelp2=""
+  let dateHelp=""
 
   return (
     <div>
@@ -114,6 +124,8 @@ export const Sscript2 = () => {
             data={turkeyAirports}
             selectedAirportToGo={setSelectedCity1}
           />
+           {cityhelp1=selectedCity1}
+           <h1>{cityhelp1}</h1>
         </div>
       </div>
       <div className="pb-4">
@@ -123,15 +135,19 @@ export const Sscript2 = () => {
             data={turkeyAirports}
             selectedAirportToGo={setSelectedCity2}
           />
+            {cityhelp2=selectedCity2}
+           <h1>{cityhelp2}</h1>
         </div>
       </div>
       <div className="pb-4">
         <div className="border border-gray-400 flex px-3 py-3 text-black rounded-xl">
           <Datepicker onChange={handleDateChange3} />
+          <h1>{dateF=formatDate(selectedDate3)}</h1>
+          <h1>{dateHelp=dateF}</h1>
         </div>
       </div>
       <button class="bg-[#9cb034] hover:bg-[#e4ff5d] text-black font-bold py-2 px-4 border-b-4 border-[#757e43] hover:border-[#dbef78] rounded">
-      <Link to={`/bilet?cityGo=${setSelectedCity1}&cityTurn=${setSelectedCity2}&dateF=${dateF}`}>Sayfa 2'ye Git</Link>
+      <Link to={`/bilet?cityGo=${cityhelp1}&cityTurn=${cityhelp2}&dateF=${dateF}`}>Ucuz Uçuş Ara</Link>
       </button>
     </div>
   );
